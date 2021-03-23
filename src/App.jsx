@@ -12,7 +12,7 @@ export const App = () => {
                 <Redirect from='/:url*(/+)' to={pathname.slice(0, -1)}/>
 
                 <Route exact path='/'>
-                    <Main name='Me' goal={{x: 1}}/>
+                    <Main />
                 </Route>
             </Switch>
         </div>

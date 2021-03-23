@@ -1,5 +1,7 @@
+import './style.scss';
+
 export const Header = () => (
-    <div>
+    <div className='header'>
       Header
     </div>
 );
