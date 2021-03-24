@@ -20,7 +20,7 @@ module.exports = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.ts', '.js', '.jsx'],
+        extensions: ['.js', '.jsx'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
             '@components': path.resolve(__dirname, 'src', 'Components'),
