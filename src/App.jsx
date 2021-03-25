@@ -1,5 +1,5 @@
 import {Switch, Redirect, Route, useLocation} from 'react-router-dom';
-import {Header} from '@/Components';
+import {Header} from '@components/Header';
 import {Main} from '@pages';
 
 
