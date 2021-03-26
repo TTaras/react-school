@@ -1,1 +1,1 @@
-export {Message} from './Message.jsx';
+export {Message} from './Message';

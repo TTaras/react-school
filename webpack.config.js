@@ -26,6 +26,7 @@ module.exports = {
             '@components': path.resolve(__dirname, 'src', 'Components'),
             '@styles': path.resolve(__dirname, 'src', 'styles'),
             '@pages': path.resolve(__dirname, 'src', 'pages'),
+            '@utils': path.resolve(__dirname, 'src', 'utils'),
         },
     },
     devtool: isDev ? 'source-map' : false,
