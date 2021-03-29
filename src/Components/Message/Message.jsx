@@ -1,15 +1,15 @@
 import './style.scss';
 
-// props === {
-//     name: 'some',
-//     text: 'lorem'
-// }
+import {AUTHORS} from '@utils/constants';
 
 export const Message = (props) => {
-    const {name, text} = props;
+    const {author, text} = props;
+    const cssClass = author === AUTHORS.ME ? 'message message_me' : 'message';
 
-    return <div>
-        <p><b>{name}</b></p>
-        <p>{text}</p>
+    return <div className={cssClass}>
+        <div className='message__inner'>
+            <b>{author}</b>:
+            <span>{text}</span>
+        </div>
     </div>;
 }
