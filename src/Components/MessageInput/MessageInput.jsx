@@ -1,14 +1,20 @@
 import './style.scss';
 
-import {useRef} from "react";
+import {useState, useRef} from "react";
 
 export const MessageInput = (props) => {
     const {handlerAddMessage} = props;
-
+    const [inputValue, setInputValue] = useState('');
     const refInput = useRef();
 
-    function handlerOnClick() {
-        const value = refInput.current.value.trim();
+    function handlerInputChange(e) {
+        setInputValue(e.target.value);
+    }
+
+    function handlerSubmit(e) {
+        e.preventDefault();
+
+        const value = inputValue.trim();
         if (!value) return;
 
         handlerAddMessage(value);
@@ -16,13 +22,8 @@ export const MessageInput = (props) => {
         refInput.current.focus();
     }
 
-    function handlerKeyDown(e) {
-        if (e.keyCode !== 13) return;
-        handlerOnClick();
-    }
-
-    return <div className='message-input'>
-        <input type='text' ref={refInput} onKeyDown={handlerKeyDown} />
-        <button onClick={handlerOnClick}>Send</button>
-    </div>;
+    return <form className='message-form' onSubmit={handlerSubmit}>
+        <input type='text' ref={refInput} value={inputValue} onChange={handlerInputChange} />
+        <button type='submit'>Send</button>
+    </form>;
 };
