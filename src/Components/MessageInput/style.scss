@@ -1,3 +1,9 @@
-.message-form {
-  margin: 20px 20px 0;
+@import '../../styles/variables.scss';
+
+.message-input {
+  position: fixed;
+  bottom: 0;
+  left: $layout-margin;
+  right: $layout-margin;
+  height: $bottom-height;
 }
