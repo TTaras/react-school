@@ -2,6 +2,6 @@ import './style.scss';
 
 export const Header = () => (
     <div className='header'>
-      Header
+      Chat 1
     </div>
 );

@@ -1,20 +1,24 @@
-import {Switch, Redirect, Route, useLocation} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {Header} from '@components/Header';
-import {Main} from '@pages';
+import {MessageField} from '@components/MessageField';
+import {ChatList} from '@components/ChatList';
+
+//import {Container} from '@material-ui/core';
+//import Paper from '@material-ui/core/Paper';
+//import {Grid} from '@material-ui/core';
 
 
 export const App = () => {
-    const {pathname} = useLocation();
     return (
-        <div>
+        <>
             <Header/>
             <Switch>
-                <Redirect from='/:url*(/+)' to={pathname.slice(0, -1)}/>
-
                 <Route exact path='/'>
-                    <Main />
+                    <MessageField />
+                    <ChatList />
                 </Route>
             </Switch>
-        </div>
+        </>
     );
 };
+
