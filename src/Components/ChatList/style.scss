@@ -1,14 +1,5 @@
 @import '../../styles/variables.scss';
 
 .chat-list {
-  position: absolute;
-  top: $header-height + $layout-margin;
-  right: $layout-margin;
-  width: $chat-list-width;
-  bottom: $bottom-height + $layout-margin;
-  overflow: auto;
 
-  @media (max-width: $mobile-point) {
-    display: none;
-  }
 }

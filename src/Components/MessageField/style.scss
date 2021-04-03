@@ -1,17 +1,4 @@
 @import '../../styles/variables.scss';
 
 .message-field {
-  position: absolute;
-  top: ($header-height + $layout-margin);
-  left: $layout-margin;
-  right: 350px;
-  bottom: ($bottom-height + $layout-margin);
-  overflow: auto;
-  border: none;
-  border-radius: $border-radius;
-  background-color: lighten($main-color, 45%);
-
-  @media (max-width: $mobile-point) {
-    right: $layout-margin;
-  }
 }

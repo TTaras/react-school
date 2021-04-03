@@ -10,7 +10,7 @@ export const MessageList = ({ messages }) => {
   />);
 
   return (
-    <div className='message-list'>
+    <div className="message-list">
       {Messages}
     </div>
   );

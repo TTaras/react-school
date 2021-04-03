@@ -1,20 +1,12 @@
 import './style.scss';
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect } from 'react';
 import { MessageList } from '@components/MessageList';
 import { MessageInput } from '@components/MessageInput';
 import { AUTHORS } from '@utils/constants';
 
 
-export const MessageField = () => {
-  const [ messages, setMessages ] = useState([ { id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' } ]);
-
-  const handlerAddMessage = useCallback((text, author = AUTHORS.ME) => {
-    setMessages((oldMessages) => [ ...oldMessages, {
-      id: `id_${oldMessages.length + 1}`, author, text
-    } ]);
-  }, []);
-
+export const MessageField = ({ messages, handlerAddMessage }) => {
   useEffect(() => {
     let timer;
     const lastMessage = messages[messages.length - 1];
@@ -28,10 +20,10 @@ export const MessageField = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [ messages, handlerAddMessage ]);
+  }, [messages, handlerAddMessage]);
 
   return (
-    <div className='message-field'>
+    <div className="message-field">
       <MessageList messages={messages}/>
       <MessageInput handlerAddMessage={handlerAddMessage}/>
     </div>
