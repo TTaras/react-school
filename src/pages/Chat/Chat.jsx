@@ -1,6 +1,7 @@
 import './style.scss';
 
-import { useState, useCallback } from 'react';
+import storage from "@utils/storage";
+import { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MessageField } from '@components/MessageField';
 import { ChatList } from '@components/ChatList';
@@ -8,22 +9,30 @@ import { AUTHORS } from '@utils/constants';
 
 export const Chat = () => {
   const { chatId } = useParams();
-  const [messages, setMessages] = useState({
-    'id_1': [{ id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' }],
-    'id_2': [{ id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' }],
-    'id_3': [{ id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' }],
-    'id_4': [{ id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' }],
-    'id_5': [{ id: 'id_1', author: AUTHORS.BOT, text: 'Hey!' }],
-  });
+  const [messages, setMessages] = useState([]);
 
-  const chatMessages = messages[chatId];
+  useEffect(() => {
+    storage.ready((data) => {
+      const chatList = data?.chatList || {};
 
-  if (!chatMessages) {
-    throw new Error('undefined chat');
-  }
+      if (!chatList[chatId]) {
+        throw new Error('undefined chat');
+      }
+
+      const storedMessages = data[`chat_${chatId}`] || [];
+      setMessages(storedMessages);
+    });
+  }, [chatId]);
 
   const handlerAddMessage = useCallback((text, author = AUTHORS.ME) => {
-    setMessages((oldMessages) => {
+    const newMessages = [...messages, {
+      id: `id_${messages.length + 1}`, author, text
+    }];
+
+    storage.set(`chat_${chatId}`, newMessages)
+      .then(() => setMessages(newMessages));
+
+    /*setMessages((oldMessages) => {
       const newMessages = Object.assign({}, oldMessages);
 
       newMessages[chatId] = [...newMessages[chatId], {
@@ -31,16 +40,16 @@ export const Chat = () => {
       }];
 
       return newMessages;
-    });
-  }, [chatId]);
+    });*/
+  }, [chatId, messages]);
 
   return (
     <div className="chat">
       <div className="chat__message-field">
-        <MessageField messages={chatMessages} handlerAddMessage={handlerAddMessage}/>
+        <MessageField messages={messages} handlerAddMessage={handlerAddMessage} />
       </div>
       <div className="chat__chat-list">
-        <ChatList activeId={chatId}/>
+        <ChatList activeId={chatId} />
       </div>
     </div>
   );

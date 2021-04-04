@@ -1,39 +1,76 @@
 import './style.scss';
 
-import { useState } from 'react';
+import storage from "@utils/storage";
+import helpers from '@utils/helpers';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import DraftsIcon from '@material-ui/icons/Drafts';
+
+import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 
 export const ChatList = ({ activeId }) => {
-  const [chatList] = useState([
-    { id: 'id_1', name: 'Chat 1' },
-    { id: 'id_2', name: 'Chat 2' },
-    { id: 'id_3', name: 'Chat 3' },
-    { id: 'id_4', name: 'Chat 4' },
-    { id: 'id_5', name: 'Chat 5' },
-  ]);
+  const [inputValue, setInputValue] = useState('');
+  const [chatList, setChatList] = useState({});
 
-  const ChatList = chatList.map((el) =>
-    <ListItem
-      button
-      key={el.id}
-      component={Link}
-      to={`/chats/${el.id}`}
-      selected={activeId === el.id}
-    >
-      <ListItemIcon>
-        <DraftsIcon/>
-      </ListItemIcon>
-      <ListItemText primary={el.name}/>
-    </ListItem>
-  );
+  const handlerInputChange = useCallback((e) => {
+    setInputValue(e.target.value);
+  }, []);
+
+  const handlerAddChat = useCallback((name) => {
+    const newList = Object.assign({}, chatList);
+    const newId = `id_${helpers.getSizeObject(chatList) + 1}`;
+
+    newList[newId] = {
+      id: newId, name
+    };
+
+    storage.set('chatList', newList)
+      .then(() => setChatList(newList));
+  }, [chatList]);
+
+  const handlerSubmit = useCallback((e) => {
+    e.preventDefault();
+
+    const value = inputValue.trim();
+    if (!value) return;
+
+    handlerAddChat(value);
+
+    setInputValue('');
+  }, [inputValue, handlerAddChat]);
+
+  useEffect(() => {
+    storage.ready((data) => {
+      setChatList(data?.chatList || {});
+    });
+  }, []);
+
+  const ChatList = [];
+  for (let [id, el] of Object.entries(chatList)) {
+    ChatList.push(
+      <ListItem
+        button
+        key={id}
+        component={Link}
+        to={`/chats/${id}`}
+        selected={activeId === id}
+      >
+        <ListItemIcon>
+          <DraftsIcon/>
+        </ListItemIcon>
+        <ListItemText primary={el.name}/>
+      </ListItem>
+    )
+  }
 
 
   return (
@@ -41,6 +78,12 @@ export const ChatList = ({ activeId }) => {
       <List component="nav" subheader={<ListSubheader component="div">Список чатов</ListSubheader>}>
         {ChatList}
       </List>
+      <form onSubmit={handlerSubmit} noValidate autoComplete="off">
+        <TextField label="Добавить чат" value={inputValue} onChange={handlerInputChange}/>
+        <Fab color="primary" aria-label="add" type="submit">
+          <AddIcon />
+        </Fab>
+      </form>
     </div>
   );
 };

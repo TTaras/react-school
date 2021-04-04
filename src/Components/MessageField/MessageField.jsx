@@ -9,9 +9,9 @@ import { AUTHORS } from '@utils/constants';
 export const MessageField = ({ messages, handlerAddMessage }) => {
   useEffect(() => {
     let timer;
-    const lastMessage = messages[messages.length - 1];
+    const lastMessage = messages.length && messages[messages.length - 1];
 
-    if (lastMessage.author !== AUTHORS.BOT) {
+    if (lastMessage && lastMessage.author !== AUTHORS.BOT) {
       timer = setTimeout(() => {
         handlerAddMessage('Ok', AUTHORS.BOT);
       }, 400);
