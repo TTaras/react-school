@@ -6,7 +6,7 @@ import { MessageInput } from '@components/MessageInput';
 import { AUTHORS } from '@utils/constants';
 
 
-export const MessageField = ({ messages, handlerAddMessage }) => {
+export const MessageField = ({ messages, chatId, handlerAddMessage }) => {
   useEffect(() => {
     let timer;
     const lastMessage = messages.length && messages[messages.length - 1];
@@ -25,7 +25,7 @@ export const MessageField = ({ messages, handlerAddMessage }) => {
   return (
     <div className="message-field">
       <MessageList messages={messages}/>
-      <MessageInput handlerAddMessage={handlerAddMessage}/>
+      <MessageInput handlerAddMessage={handlerAddMessage} chatId={chatId} />
     </div>
   );
 };

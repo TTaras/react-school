@@ -36,7 +36,7 @@ export const Chat = () => {
   return (
     <div className="chat">
       <div className="chat__message-field">
-        <MessageField messages={messages} handlerAddMessage={handlerAddMessage} />
+        <MessageField messages={messages} chatId={chatId} handlerAddMessage={handlerAddMessage} />
       </div>
       <div className="chat__chat-list">
         <ChatList activeId={chatId} />
