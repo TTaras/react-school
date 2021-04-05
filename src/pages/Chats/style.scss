@@ -1,0 +1,6 @@
+@import '../../styles/variables.scss';
+
+.chats {
+  margin: ($header-height + $layout-margin) $layout-margin $layout-margin;
+  font-size: 18px;
+}

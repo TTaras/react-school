@@ -1,8 +1,10 @@
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { App } from './App';
-import '@styles/common.scss';
+import "@styles/common.scss";
+
+import * as React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { App } from "./App";
+
 
 const app = () => (
   <React.StrictMode>
@@ -12,4 +14,4 @@ const app = () => (
   </React.StrictMode>
 );
 
-ReactDOM.render(app(), document.getElementById('root'));
+ReactDOM.render(app(), document.getElementById("root"));

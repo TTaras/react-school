@@ -2,17 +2,29 @@
 
 .header {
   position: absolute;
-  left: $layout-margin;
+  left: 0;
   top: 0;
-  right: $layout-margin;
+  right: 0;
   height: $header-height;
+  padding: 0 $layout-margin;
   overflow: hidden;
+  box-shadow: 0px 4px 8px 0px rgb(34 60 80 / 20%);
 
   display: flex;
   align-items: center;
 
-  //background-color: black;
-  //color: white;
-  font-size: 50px;
-  //text-align: center;
+  &__chat-name {
+    width: 100%;
+    font-size: 28px;
+    line-height: 0.8;
+  }
+
+  &__links {
+    margin-left: 20px;
+    flex-shrink: 0;
+
+    &__item {
+      margin-left: 8px;
+    }
+  }
 }
