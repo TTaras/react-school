@@ -31,16 +31,6 @@ export const Chat = () => {
 
     storage.set(`chat_${chatId}`, newMessages)
       .then(() => setMessages(newMessages));
-
-    /*setMessages((oldMessages) => {
-      const newMessages = Object.assign({}, oldMessages);
-
-      newMessages[chatId] = [...newMessages[chatId], {
-        id: `id_${newMessages[chatId].length + 1}`, author, text
-      }];
-
-      return newMessages;
-    });*/
   }, [chatId, messages]);
 
   return (
