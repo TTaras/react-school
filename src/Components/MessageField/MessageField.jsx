@@ -11,10 +11,9 @@ import { addMessage } from "@store/messager/actions";
 
 export const MessageField = ({ chatId }) => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.messager);
-  const chatList = data.chatList;
-  const chats = data.chats;
-  const messages = chats[chatId] || [];
+  const messagerData = useSelector((state) => state.messager);
+  const chatList = messagerData.chatList;
+  const messages = messagerData.chats[chatId] || [];
 
   if (!chatList[chatId]) {
     throw new Error('undefined chat');
@@ -26,6 +25,7 @@ export const MessageField = ({ chatId }) => {
 
   useEffect(() => {
     let timer;
+    const messages = messagerData.chats[chatId] || [];
     const lastMessage = messages.length && messages[messages.length - 1];
 
     if (lastMessage && lastMessage.author !== AUTHORS.BOT) {
@@ -37,7 +37,7 @@ export const MessageField = ({ chatId }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [messages.length, handlerAddMessage]);
+  }, [messagerData, chatId, handlerAddMessage]);
 
   return (
     <div className="message-field">
