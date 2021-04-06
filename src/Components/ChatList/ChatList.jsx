@@ -1,9 +1,10 @@
 import './style.scss';
 
-import storage from "@utils/storage";
-import helpers from '@utils/helpers';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
+
+import { addChat } from "@store/messager/actions";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -19,23 +20,12 @@ import AddIcon from '@material-ui/icons/Add';
 
 export const ChatList = ({ activeId }) => {
   const [inputValue, setInputValue] = useState('');
-  const [chatList, setChatList] = useState({});
+  const chatList = useSelector((state) => state.messager.chatList);
+  const dispatch = useDispatch();
 
   const handlerInputChange = useCallback((e) => {
     setInputValue(e.target.value);
   }, []);
-
-  const handlerAddChat = useCallback((name) => {
-    const newList = Object.assign({}, chatList);
-    const newId = `id_${helpers.getSizeObject(chatList) + 1}`;
-
-    newList[newId] = {
-      id: newId, name
-    };
-
-    storage.set('chatList', newList)
-      .then(() => setChatList(newList));
-  }, [chatList]);
 
   const handlerSubmit = useCallback((e) => {
     e.preventDefault();
@@ -43,16 +33,10 @@ export const ChatList = ({ activeId }) => {
     const value = inputValue.trim();
     if (!value) return;
 
-    handlerAddChat(value);
+    dispatch(addChat(value));
 
     setInputValue('');
-  }, [inputValue, handlerAddChat]);
-
-  useEffect(() => {
-    storage.ready((data) => {
-      setChatList(data?.chatList || {});
-    });
-  }, []);
+  }, [inputValue, dispatch]);
 
   const ChatList = [];
   for (let [id, el] of Object.entries(chatList)) {

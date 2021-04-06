@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/SendRounded';
 import { Grid } from '@material-ui/core';
 
+
 export const MessageInput = ({ handlerAddMessage, chatId }) => {
   const [inputValue, setInputValue] = useState('');
   const refInput = useRef();
@@ -22,12 +23,12 @@ export const MessageInput = ({ handlerAddMessage, chatId }) => {
     if (!value) return;
 
     handlerAddMessage(value);
+
     setInputValue('');
     refInput.current.focus();
   }, [inputValue, handlerAddMessage]);
 
   useEffect(() => {
-    console.log('MessageInput');
     setInputValue('');
   }, [chatId]);
 
