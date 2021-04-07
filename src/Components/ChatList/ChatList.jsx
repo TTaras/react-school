@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { addChat } from "@store/messager/actions";
+import { addChat } from "@store/chatList/actions";
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,7 +20,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export const ChatList = ({ activeId }) => {
   const [inputValue, setInputValue] = useState('');
-  const chatList = useSelector((state) => state.messager.chatList);
+  const chatList = useSelector((state) => state.chatList);
   const dispatch = useDispatch();
 
   const handlerInputChange = useCallback((e) => {

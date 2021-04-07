@@ -6,18 +6,15 @@ import { MessageList } from '@components/MessageList';
 import { MessageInput } from '@components/MessageInput';
 import { AUTHORS } from '@utils/constants';
 
-import { addMessage } from "@store/messager/actions";
+import { addMessage } from "@store/messages/actions";
 
+import Alert from '@material-ui/lab/Alert';
 
 export const MessageField = ({ chatId }) => {
   const dispatch = useDispatch();
-  const messagerData = useSelector((state) => state.messager);
-  const chatList = messagerData.chatList;
-  const messages = messagerData.chats[chatId] || [];
-
-  if (!chatList[chatId]) {
-    throw new Error('undefined chat');
-  }
+  const messages = useSelector(state => state.messages);
+  const chatList = useSelector(state => state.chatList);
+  const messageList = messages[chatId] || [];
 
   const handlerAddMessage = useCallback((text, author = AUTHORS.ME) => {
     dispatch(addMessage(text, author, chatId));
@@ -25,8 +22,8 @@ export const MessageField = ({ chatId }) => {
 
   useEffect(() => {
     let timer;
-    const messages = messagerData.chats[chatId] || [];
-    const lastMessage = messages.length && messages[messages.length - 1];
+    const messageList = messages[chatId] || [];
+    const lastMessage = messageList.length && messageList[messageList.length - 1];
 
     if (lastMessage && lastMessage.author !== AUTHORS.BOT) {
       timer = setTimeout(() => {
@@ -37,11 +34,18 @@ export const MessageField = ({ chatId }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [messagerData, chatId, handlerAddMessage]);
+  }, [messages, chatId, handlerAddMessage]);
+
+
+  if (!chatList[chatId]) {
+    return (
+      <Alert severity="error">Undefined chat</Alert>
+    );
+  }
 
   return (
     <div className="message-field">
-      <MessageList messages={messages} />
+      <MessageList messages={messageList} />
       <MessageInput chatId={chatId} handlerAddMessage={handlerAddMessage} />
     </div>
   );
