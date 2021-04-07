@@ -20,13 +20,14 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: [ '.js', '.jsx' ],
+    extensions: ['.js', '.jsx'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@components': path.resolve(__dirname, 'src', 'Components'),
       '@pages': path.resolve(__dirname, 'src', 'pages'),
       '@styles': path.resolve(__dirname, 'src', 'styles'),
       '@utils': path.resolve(__dirname, 'src', 'utils'),
+      '@store': path.resolve(__dirname, 'src', 'store'),
     },
   },
   devtool: isDev ? 'source-map' : false,
@@ -38,7 +39,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      filename: "index.html",
+      filename: 'index.html',
       template: path.resolve(__dirname, 'public', 'index.html'),
       minify: {
         removeComments: isProd,
@@ -47,13 +48,13 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       //filename: filename('css'),
-      filename: "[name].css",
+      filename: '[name].css',
       chunkFilename: '[id].css'
     }),
     new ESLintPlugin({
       fix: true,
       context: path.resolve(__dirname, 'src'),
-      extensions: [ '.js', '.jsx' ],
+      extensions: ['.js', '.jsx'],
       lintDirtyModulesOnly: true,
     }),
   ],
@@ -62,7 +63,7 @@ module.exports = {
       {
         test: /\.(scss|css)$/,
         //use: ['style-loader', 'css-loader', 'sass-loader'],
-        use: [ MiniCssExtractPlugin.loader, "css-loader", "sass-loader" ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.js$|jsx$/,
@@ -78,10 +79,10 @@ module.exports = {
                   corejs: 3,
                 },
               ],
-              [ '@babel/preset-react', {
+              ['@babel/preset-react', {
                 development: isDev,
                 runtime: 'automatic',
-              } ],
+              }],
             ],
             plugins: [
               '@babel/plugin-proposal-class-properties'

@@ -1,14 +1,14 @@
 import './style.scss';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@material-ui/icons/SendRounded';
 import { Grid } from '@material-ui/core';
 
-export const MessageInput = (props) => {
-  const { handlerAddMessage } = props;
+
+export const MessageInput = ({ handlerAddMessage, chatId }) => {
   const [inputValue, setInputValue] = useState('');
   const refInput = useRef();
 
@@ -23,9 +23,14 @@ export const MessageInput = (props) => {
     if (!value) return;
 
     handlerAddMessage(value);
+
     setInputValue('');
     refInput.current.focus();
   }, [inputValue, handlerAddMessage]);
+
+  useEffect(() => {
+    setInputValue('');
+  }, [chatId]);
 
   return (
     <form className="message-input" onSubmit={handlerSubmit} noValidate autoComplete="off">
