@@ -47,6 +47,7 @@ export const ChatList = ({ activeId }) => {
         component={Link}
         to={`/chats/${id}`}
         selected={activeId === id}
+        className={el.isBlink ? 'blink' : ''}
       >
         <ListItemIcon>
           <DraftsIcon/>

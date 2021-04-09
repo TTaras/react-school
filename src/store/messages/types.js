@@ -1,2 +1,1 @@
-export const ADD_CHAT = "CHATS::ADD_CHAT";
-export const ADD_MESSAGE = 'CHATS::ADD_MESSAGE';
+export const ADD_MESSAGE = 'MESSAGES::ADD_MESSAGE';

@@ -1,1 +1,2 @@
 export const ADD_CHAT = "CHATS::ADD_CHAT";
+export const TOGGLE_CHAT_BLINK = "CHATS::TOGGLE_CHAT_BLINK";

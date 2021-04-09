@@ -1,7 +1,7 @@
 import './style.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { MessageList } from '@components/MessageList';
 import { MessageInput } from '@components/MessageInput';
 import { AUTHORS } from '@utils/constants';
@@ -19,23 +19,6 @@ export const MessageField = ({ chatId }) => {
   const handlerAddMessage = useCallback((text, author = AUTHORS.ME) => {
     dispatch(addMessage(text, author, chatId));
   }, [chatId, dispatch]);
-
-  useEffect(() => {
-    let timer;
-    const messageList = messages[chatId] || [];
-    const lastMessage = messageList.length && messageList[messageList.length - 1];
-
-    if (lastMessage && lastMessage.author !== AUTHORS.BOT) {
-      timer = setTimeout(() => {
-        handlerAddMessage('Ok', AUTHORS.BOT);
-      }, 400);
-    }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [messages, chatId, handlerAddMessage]);
-
 
   if (!chatList[chatId]) {
     return (
