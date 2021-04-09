@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./types";
+import { ADD_MESSAGE, DELETE_MESSAGES } from "./types";
 import { toggleChatBlink } from "@store/chatList/actions";
 import { AUTHORS } from '@utils/constants';
 
@@ -19,3 +19,8 @@ export const addMessage = (text, author, chatId) =>
       }
     }
   }
+
+export const deleteMessages = (id) => ({
+  type: DELETE_MESSAGES,
+  id
+})

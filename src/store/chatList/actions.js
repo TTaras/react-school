@@ -1,9 +1,21 @@
-import { ADD_CHAT, TOGGLE_CHAT_BLINK } from './types';
+import { deleteMessages } from "@store/messages/actions";
+import {
+  ADD_CHAT,
+  DELETE_CHAT,
+  TOGGLE_CHAT_BLINK
+} from './types';
+
 
 export const addChat = (name) => ({
   type: ADD_CHAT,
   name,
 });
+
+export const deleteChat = (id) =>
+  (dispatch) => {
+    dispatch({ type: DELETE_CHAT, id });
+    dispatch(deleteMessages(id));
+  };
 
 export const toggleChatBlink = (id, toggle) =>
   (dispatch) => {
@@ -15,3 +27,4 @@ export const toggleChatBlink = (id, toggle) =>
       }, 1000);
     }
   }
+

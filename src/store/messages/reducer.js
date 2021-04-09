@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./types";
+import { ADD_MESSAGE, DELETE_MESSAGES } from './types';
 
 const initialState = {};
 
@@ -16,6 +16,15 @@ export const messagesReducer = (state = initialState, action) => {
           text: action.text,
         })
       }
+    }
+
+    case DELETE_MESSAGES: {
+      const messages = { ...state };
+      if (messages[action.id]) {
+        delete messages[action.id];
+      }
+
+      return messages;
     }
 
     default:

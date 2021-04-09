@@ -1,5 +1,4 @@
-import { ADD_CHAT } from "./types";
-import { TOGGLE_CHAT_BLINK } from './types';
+import { ADD_CHAT, DELETE_CHAT, TOGGLE_CHAT_BLINK } from "./types";
 
 const initialState = {};
 
@@ -16,6 +15,16 @@ export const chatListReducer = (state = initialState, action) => {
         }
       };
     }
+
+    case DELETE_CHAT: {
+      const chats = { ...state };
+      if (chats[action.id]) {
+        delete chats[action.id];
+      }
+
+      return chats;
+    }
+
     case TOGGLE_CHAT_BLINK: {
       const chat = state[action.id];
       if (!chat) return;

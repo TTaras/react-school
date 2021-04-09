@@ -4,14 +4,15 @@ import { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { addChat } from "@store/chatList/actions";
+import { addChat } from '@store/chatList/actions';
+import { deleteChat } from '@store/chatList/actions';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
@@ -38,6 +39,16 @@ export const ChatList = ({ activeId }) => {
     setInputValue('');
   }, [inputValue, dispatch]);
 
+  const handlerRemoveChat = useCallback((e) => {
+    e.preventDefault();
+
+    const id = e.currentTarget.dataset.id;
+    if (!id) return;
+
+    console.log('deleteChat-' + id);
+    dispatch(deleteChat(id));
+  }, [dispatch]);
+
   const ChatList = [];
   for (let [id, el] of Object.entries(chatList)) {
     ChatList.push(
@@ -50,7 +61,7 @@ export const ChatList = ({ activeId }) => {
         className={el.isBlink ? 'blink' : ''}
       >
         <ListItemIcon>
-          <DraftsIcon/>
+          <DeleteIcon onClick={handlerRemoveChat} data-id={id}/>
         </ListItemIcon>
         <ListItemText primary={el.name}/>
       </ListItem>
