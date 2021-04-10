@@ -6,7 +6,7 @@ export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MESSAGE: {
       const messages = state[action.chatId] || [];
-      const newId = `id_${messages.length + 1}`;
+      const newId = `id_${Date.now()}`;
 
       return {
         ...state,
