@@ -2,6 +2,8 @@ import './style.scss';
 
 import { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { Link } from 'react-router-dom';
 
 import { addChat } from '@store/chatList/actions';
@@ -21,6 +23,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 export const ChatList = ({ activeId }) => {
   const [inputValue, setInputValue] = useState('');
+  const history = useHistory();
   const chatList = useSelector((state) => state.chatList);
   const dispatch = useDispatch();
 
@@ -45,9 +48,12 @@ export const ChatList = ({ activeId }) => {
     const id = e.currentTarget.dataset.id;
     if (!id) return;
 
-    console.log('deleteChat-' + id);
     dispatch(deleteChat(id));
-  }, [dispatch]);
+
+    if (id === activeId) {
+      history.push('/chats');
+    }
+  }, [dispatch, history, activeId]);
 
   const ChatList = [];
   for (let [id, el] of Object.entries(chatList)) {
