@@ -1,5 +1,9 @@
 @import '../../styles/variables.scss';
 
 .chat-list {
-
+  .MuiListItem-root {
+    &.blink {
+      background-color: aqua;
+    }
+  }
 }

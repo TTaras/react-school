@@ -5,12 +5,25 @@
   text-align: right;
 
   &__inner {
+    position: relative;
     display: inline-block;
-    padding: 8px 10px;
+    padding: 10px 12px;
     background-color: white;
     color: black;
     border: none;
     border-radius: $border-radius;
+  }
+
+  &__delete {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 100%;
+    font-family: Arial;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
 
   &_me {
@@ -19,6 +32,7 @@
 
   &_me &{
     &__inner {
+      padding-right: 30px;
       background-color: #adf9a8;
       color: black;
     }
