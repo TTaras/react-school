@@ -32,7 +32,7 @@ module.exports = {
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     port: 3000,
     historyApiFallback: true,
   },

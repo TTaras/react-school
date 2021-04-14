@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import { profileReducer } from "./profile/reducer";
 import { chatListReducer } from "./chatList/reducer";
 import { messagesReducer } from "./messages/reducer";
+import { aboutReducer } from "./about/reducer";
 
 const persistConfig = {
   key: 'react-messager',
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   chatList: chatListReducer,
   messages: messagesReducer,
+  about: aboutReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
