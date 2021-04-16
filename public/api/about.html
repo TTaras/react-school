@@ -1,0 +1,44 @@
+<h1>devServer.contentBase</h1>
+<p>
+  <code>boolean: false string [string] number</code>
+  Tell the server where to serve content from. This is only necessary if you want to serve static files. devServer.publicPath will be used to determine where the bundles should be served from, and takes precedence.
+</p>
+
+<p>
+  <strong>Tip</strong><br>
+  It is recommended to use an absolute path.
+</p>
+
+
+By default, it will use your current working directory to serve content. To disable contentBase set it to false.
+
+<h3>webpack.config.js</h3>
+<pre>
+const path = require('path');
+
+module.exports = {
+  //...
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+  },
+};
+</pre>
+<p>
+  It is also possible to serve from multiple directories in case you want to serve static content at multiple URLs with contentBasePublicPath:
+</p>
+
+
+<h3>webpack.config.js</h3>
+<pre>
+const path = require('path');
+
+module.exports = {
+  //...
+  devServer: {
+    contentBase: [
+      path.join(__dirname, 'public'),
+      path.join(__dirname, 'assets'),
+    ],
+  },
+};
+</pre>
